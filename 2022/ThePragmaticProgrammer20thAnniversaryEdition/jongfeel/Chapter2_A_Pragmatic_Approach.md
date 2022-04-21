@@ -1,5 +1,18 @@
 ## 2. A Pragmatic Approach
 
+## Discussions
+
+저는 Orthogonality(직교성)에 대한 부분이 중요하다고 생각했고, 또 다른 개념으로 의존성을 줄이자 혹은 응집도를 낮추고 결합도를 높이자 라는 생각을 했습니다.
+
+최근에 작업한 것(지난 1년) 중에 직교성을 고려해서 작업한 내용이 있다면 그 특징이 무엇이 있었는지 간략한 설명을 해보고 논의해 봤으면 좋겠습니다.
+
+```
+답변)
+저의 경우는 Unity를 사용하고 있고, 여기에는 GameObject - component라는 개념이 있기 때문에 직교성 있는 프로그래밍이 가능할 것으로 여겨지지만 의존 관계는 분명 생기게 마련입니다.
+
+그래서 저는 event 방식의 프로그래밍 전략을 통해 다른 component들 간의 의존성을 줄이고 최대한 직교성을 높이는 방법으로 프로그래밍 하는 작전을 좋아합니다.
+```
+
 ### Topic 8. The Essence of Good Design
 
 > Tip 14. Good Design Is Easier to Change Than Bad Design
