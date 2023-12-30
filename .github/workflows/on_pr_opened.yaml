@@ -1,11 +1,18 @@
-# .github/workflows/assign-reviewer.yml
-name: 'assign reviewers'
+name: 'On Pull Request Opened'
 
 on:
   pull_request:
     types: [opened]
 
+permissions:
+  pull-requests: write
+
 jobs:
+  assign-author:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: toshimaru/auto-author-assign@v2.0.0
+
   add-reviewer:
     runs-on: ubuntu-latest
     steps:
