@@ -1,8 +1,8 @@
 name: Auto Author Assign
 
 on:
-  pull_request_target:
-    types: [ opened, reopened ]
+  pull_request:
+    types: [opened]
 
 permissions:
   pull-requests: write
