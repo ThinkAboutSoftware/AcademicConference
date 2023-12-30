@@ -1,1 +1,1 @@
-*.md @thkwon1
+*.md @team_thkwon
