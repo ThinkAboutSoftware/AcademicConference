@@ -1,0 +1,8 @@
+version: 1
+labels:
+  - label: "2024"
+    files:
+      - "2024/*"
+  - label: "The Psychology Of Computer Programming"
+    files:
+      - "2024/ThePsychologyOfComputerProgramming"

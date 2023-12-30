@@ -20,3 +20,12 @@ jobs:
       - uses: ohnogumi/auto-reviewers@v0.0.5
         with:
          token: "${{ secrets.GITHUB_TOKEN }}"
+
+  add-label:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: srvaroa/labeler@master
+        with:
+          config_path: .github/configs/labeler.yml
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
