@@ -1,1 +1,1 @@
-*.md @team_thkwon
+*.md @thkwon-github-actions-practice/team_thkwon
