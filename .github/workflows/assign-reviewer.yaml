@@ -13,7 +13,7 @@ jobs:
         with:
          # required
          # If you assign team for reviewer, you generate a personal access tokens with workflow scope. 
-         token: "${{ secrets.GITHUB_TOKEN }}" # "${{ secrets.PERSONAL_TOKEN }}"
+         token: ${{ secrets.PERSONAL_TOKEN }}
          
          # optional 
          # config: ".github/assign-reviewers.txt"
