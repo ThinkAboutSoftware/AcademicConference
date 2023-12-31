@@ -1,0 +1,39 @@
+name: "On Pull Request Opened"
+
+on:
+  pull_request:
+    types: [opened]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  assign-author:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: toshimaru/auto-author-assign@v2.0.0
+
+  add-reviewer:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: ohnogumi/auto-reviewers@v0.0.5
+        with:
+          token: "${{ secrets.GITHUB_TOKEN }}"
+
+  add-label:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: srvaroa/labeler@master
+        with:
+          config_path: .github/configs/labeler.yml
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
+  comment-for-filling-others-like-projects-milestone-development-etc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: JoseThen/comment-pr@v1.2.0
+        with:
+          comment: "우측에 있는 `Projects`, `Milestone`, `Development`를 확인 후 할당 해주세요~! :bow:"
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
