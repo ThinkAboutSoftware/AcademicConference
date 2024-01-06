@@ -5,6 +5,6 @@ labels:
   - label: "2024"
     files:
       - "2024/*"
-  - label: "The Psychology Of Computer Programming"
+  - label: "The Psychology of Computer Programming"
     files:
       - "2024/ThePsychologyOfComputerProgramming/*"
