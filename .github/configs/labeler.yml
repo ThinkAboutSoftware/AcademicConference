@@ -8,3 +8,6 @@ labels:
   - label: "The Psychology of Computer Programming"
     files:
       - "2024/ThePsychologyOfComputerProgramming/*"
+  - label: "Patterns of Enterprise Application Architecture"
+    files:
+      - "2024/PatternsOfEnterpriseApplicationArchitecture/*"
