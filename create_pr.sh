@@ -6,10 +6,16 @@ ASSIGNEE="@me"
 # 수동으로 변경해서 사용해도 되고, 이부분을 날짜에 맞게 자동으로 수정되도록, 추후에 변경해도 됨
 LABELS="2025,타입으로 견고하게 다형성으로 유연하게
 탄탄한 개발을 위한 씨줄과 날줄"
+PROJECT="2025 Academic Conference"
 MILESTONE="타입으로 견고하게 다형성으로 유연하게"
 
 read -p "PR 제목을 입력하세요: " TITLE
 read -p "PR 본문을 입력하세요: " BODY
+read -p "연결할 Issue 번호가 있다면 입력하세요 (예: 123, 없으면 ENTER): " ISSUE_NO
+
+if [ -n "$ISSUE_NO" ]; then
+  BODY="${BODY} Close #${ISSUE_NO}"
+fi
 
 gh pr create \
     -t "$TITLE" \
@@ -17,7 +23,8 @@ gh pr create \
     -r "$REVIEWERS" \
     -a "$ASSIGNEE" \
     -l "$LABELS" \
-    -m "$MILESTONE"
+    -m "$MILESTONE" \
+    -p "$PROJECT"
 
 if [ $? -eq 0 ]; then
     echo "PR이 성공적으로 생성되었습니다."
