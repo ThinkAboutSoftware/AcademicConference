@@ -56,20 +56,6 @@ get_body() {
     fi
 }
 
-# Issue 번호 입력 및 검증
-get_issue_numbers() {
-    read -p "연결할 Issue 번호를 입력하세요 (예: 123, 없으면 ENTER): " ISSUE_INPUT
-    
-    if [ -n "$ISSUE_INPUT" ]; then
-        # 숫자만 허용
-        if [[ "$ISSUE_INPUT" =~ ^[0-9]+$ ]]; then
-            BODY="${BODY}\n\nCloses #${ISSUE_INPUT}"
-        else
-            echo "경고: 잘못된 형식입니다. Issue 번호는 숫자만 허용됩니다."
-        fi
-    fi
-}
-
 # Dry-run 미리보기
 dry_run() {
     echo "=== PR 생성 미리보기 ==="
@@ -90,7 +76,6 @@ main() {
     
     get_title
     get_body
-    get_issue_numbers
     
     # Dry-run 확인
     read -p "PR을 생성하기 전에 미리보기를 보시겠습니까? (Y/n): " show_preview
