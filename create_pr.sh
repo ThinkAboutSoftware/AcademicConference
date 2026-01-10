@@ -1,33 +1,108 @@
 #!/bin/bash
 
-REVIEWERS="wooyaggo86,TaeHyoungKwon,jongfeel,jintaeyeong,hemil0102,ymkim97,aquamagic9,fkdl0048,tttghost,dhlee3994"
+set -euo pipefail
+
+REVIEWERS="TaeHyoungKwon,jongfeel,ymkim97,tttghost,dhlee3994,GeunJuLEE,benscookie,chichoon"
 ASSIGNEE="@me"
 
-# 수동으로 변경해서 사용해도 되고, 이부분을 날짜에 맞게 자동으로 수정되도록, 추후에 변경해도 됨
-LABELS="2025,타입으로 견고하게 다형성으로 유연하게
-탄탄한 개발을 위한 씨줄과 날줄"
-PROJECT="2025 Academic Conference"
-MILESTONE="타입으로 견고하게 다형성으로 유연하게"
+PROJECT="2026 Academic Conference"
 
-read -p "PR 제목을 입력하세요: " TITLE
-read -p "PR 본문을 입력하세요: " BODY
-read -p "연결할 Issue 번호가 있다면 입력하세요 (예: 123, 없으면 ENTER): " ISSUE_NO
+# 이부분을 수동으로 변경해서 사용
+LABELS="2026,Software Architecture: The Hard Parts
+소프트웨어 아키텍처: The Hard Parts, 분산 아키텍처를 위한 모던 트레이드오프 분석"
+MILESTONE="Software Architecture: The Hard Parts"
 
-if [ -n "$ISSUE_NO" ]; then
-  BODY="${BODY} Close #${ISSUE_NO}"
-fi
+# 사전 검증
+check_prerequisites() {
+    if ! command -v gh &> /dev/null; then
+        echo "오류: GitHub CLI(gh)가 설치되어 있지 않습니다."
+        echo "설치 방법: brew install gh"
+        exit 1
+    fi
+    
+    if ! git rev-parse --git-dir &> /dev/null; then
+        echo "오류: Git 저장소가 아닙니다."
+        exit 1
+    fi
+    
+    if ! gh auth status &> /dev/null; then
+        echo "오류: GitHub에 로그인되어 있지 않습니다."
+        echo "로그인: gh auth login"
+        exit 1
+    fi
+}
 
-gh pr create \
-    -t "$TITLE" \
-    -b "$BODY" \
-    -r "$REVIEWERS" \
-    -a "$ASSIGNEE" \
-    -l "$LABELS" \
-    -m "$MILESTONE" \
-    -p "$PROJECT"
+# PR 제목 입력 및 검증
+get_title() {
+    while true; do
+        read -p "PR 제목을 입력하세요: " TITLE
+        if [ -n "$TITLE" ]; then
+            break
+        fi
+        echo "제목은 필수입니다. 다시 입력해주세요."
+    done
+}
 
-if [ $? -eq 0 ]; then
-    echo "PR이 성공적으로 생성되었습니다."
-else
-    echo "PR 생성에 실패했습니다."
-fi
+# PR 본문 입력 (다중 라인 지원)
+get_body() {
+    echo "PR 본문을 입력하세요 (여러 줄 입력 가능, 입력 완료 후 Ctrl+D):"
+    BODY=$(cat)
+    
+    if [ -z "$BODY" ]; then
+        read -p "본문이 비어있습니다. 계속하시겠습니까? (y/N): " confirm
+        if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
+            exit 0
+        fi
+    fi
+}
+
+# Dry-run 미리보기
+dry_run() {
+    echo "=== PR 생성 미리보기 ==="
+    echo "제목: $TITLE"
+    echo "본문:"
+    echo -e "$BODY"
+    echo "리뷰어: $REVIEWERS"
+    echo "담당자: $ASSIGNEE"
+    echo "라벨: $LABELS"
+    echo "프로젝트: $PROJECT"
+    echo "마일스톤: $MILESTONE"
+    echo "========================"
+}
+
+# 메인 실행
+main() {
+    check_prerequisites
+    
+    get_title
+    get_body
+    
+    # Dry-run 확인
+    read -p "PR을 생성하기 전에 미리보기를 보시겠습니까? (Y/n): " show_preview
+    if [[ ! "$show_preview" =~ ^[Nn]$ ]]; then
+        dry_run
+        read -p "위 내용으로 PR을 생성하시겠습니까? (Y/n): " confirm
+        if [[ "$confirm" =~ ^[Nn]$ ]]; then
+            echo "PR 생성이 취소되었습니다."
+            exit 0
+        fi
+    fi
+    
+    # PR 생성
+    echo "PR을 생성하는 중..."
+    if gh pr create \
+        -t "$TITLE" \
+        -b "$BODY" \
+        -r "$REVIEWERS" \
+        -a "$ASSIGNEE" \
+        -l "$LABELS" \
+        -m "$MILESTONE" \
+        -p "$PROJECT"; then
+        echo "✅ PR이 성공적으로 생성되었습니다."
+    else
+        echo "❌ PR 생성에 실패했습니다."
+        exit 1
+    fi
+}
+
+main
