@@ -4,8 +4,7 @@
 
 ## Review
 
-- https://github.com/jongfeel/BookReview/issues/1612#issuecomment-3831102227
-- https://github.com/jongfeel/BookReview/issues/1612#issuecomment-3841314191
+- https://github.com/jongfeel/BookReview/issues/1615#issuecomment-3848250975
 
 ### Review content 1
 
