@@ -43,6 +43,23 @@ get_title() {
     done
 }
 
+# Issue ID 입력 및 검증
+get_issue_id() {
+    while true; do
+        read -p "Issue ID를 입력하세요 (필수): " ISSUE_ID
+        if [ -n "$ISSUE_ID" ]; then
+            # 숫자 검증
+            if [[ "$ISSUE_ID" =~ ^[0-9]+$ ]]; then
+                break
+            else
+                echo "오류: Issue ID는 숫자여야 합니다. 다시 입력해주세요."
+            fi
+        else
+            echo "Issue ID는 필수입니다. 다시 입력해주세요."
+        fi
+    done
+}
+
 # PR 본문 입력 (다중 라인 지원)
 get_body() {
     echo "PR 본문을 입력하세요 (여러 줄 입력 가능, 입력 완료 후 Ctrl+D):"
@@ -54,12 +71,20 @@ get_body() {
             exit 0
         fi
     fi
+    
+    # Issue 연결 키워드 자동 추가
+    if [ -n "$BODY" ]; then
+        BODY="${BODY}"$'\n\n'"Closes #${ISSUE_ID}"
+    else
+        BODY="Closes #${ISSUE_ID}"
+    fi
 }
 
 # Dry-run 미리보기
 dry_run() {
     echo "=== PR 생성 미리보기 ==="
     echo "제목: $TITLE"
+    echo "연결된 Issue: #${ISSUE_ID}"
     echo "본문:"
     echo -e "$BODY"
     echo "리뷰어: $REVIEWERS"
@@ -75,6 +100,7 @@ main() {
     check_prerequisites
     
     get_title
+    get_issue_id
     get_body
     
     # Dry-run 확인
