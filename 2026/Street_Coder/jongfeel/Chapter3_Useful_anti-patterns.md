@@ -4,7 +4,7 @@
 
 ## Review
 
-- https://github.com/jongfeel/BookReview/issues/1659#issuecomment-4155880188
+- https://github.com/jongfeel/BookReview/issues/1661#issuecomment-4163338568
 
 ### 논의 주제
 
