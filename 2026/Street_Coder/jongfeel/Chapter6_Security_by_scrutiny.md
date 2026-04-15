@@ -27,4 +27,4 @@ https://youtu.be/Yk2CBVkuEdo?si=laNa8UNJQVGQF6Tr
 가독성과 성능 사이의 균형을 위해 분산 환경에 좋다는 맹목적 GUID를 사용하는게 아니라 다른 여러 방법을 쓸 수 있다에 대한 내용입니다.
 
 책에서도 가장 마지막 소주제에 UUID 관련 내용이 있고 성능 문제도 언급합니다.
-그래서 UUID의 파생인 UUIDv6 UUIDv7, UUIDv8이 있다는 걸 새롭게 알게 되었습니다.
+그래서 UUID의 파생인 UUIDv6, UUIDv7, UUIDv8이 있다는 걸 새롭게 알게 되었습니다.
