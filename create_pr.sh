@@ -8,9 +8,9 @@ ASSIGNEE="@me"
 PROJECT="2026 Academic Conference"
 
 # 이부분을 수동으로 변경해서 사용
-LABELS="2026,Street Coder: The Rules to Break and How to Break
-스트리트 코더 - 프로그래밍 세계에서 살아남기 위한 개발자 생존 가이드!"
-MILESTONE="Street Coder: The Rules to Break and How to Break"
+LABELS="2026,개발자 원칙
+개발자 원칙 - 확장판, 테크 리더 9인이 말하는 더 나은 개발자로 살아가는 원칙과 철학"
+MILESTONE="개발자 원칙"
 
 # 사전 검증
 check_prerequisites() {
