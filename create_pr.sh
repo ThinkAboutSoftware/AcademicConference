@@ -8,9 +8,9 @@ ASSIGNEE="@me"
 PROJECT="2026 Academic Conference"
 
 # 이부분을 수동으로 변경해서 사용
-LABELS="2026,Software Architecture: The Hard Parts
-소프트웨어 아키텍처: The Hard Parts, 분산 아키텍처를 위한 모던 트레이드오프 분석"
-MILESTONE="Software Architecture: The Hard Parts"
+LABELS="2026,Street Coder: The Rules to Break and How to Break
+스트리트 코더 - 프로그래밍 세계에서 살아남기 위한 개발자 생존 가이드!"
+MILESTONE="Street Coder: The Rules to Break and How to Break"
 
 # 사전 검증
 check_prerequisites() {
@@ -19,12 +19,12 @@ check_prerequisites() {
         echo "설치 방법: brew install gh"
         exit 1
     fi
-    
+
     if ! git rev-parse --git-dir &> /dev/null; then
         echo "오류: Git 저장소가 아닙니다."
         exit 1
     fi
-    
+
     if ! gh auth status &> /dev/null; then
         echo "오류: GitHub에 로그인되어 있지 않습니다."
         echo "로그인: gh auth login"
@@ -64,14 +64,14 @@ get_issue_id() {
 get_body() {
     echo "PR 본문을 입력하세요 (여러 줄 입력 가능, 입력 완료 후 Ctrl+D):"
     BODY=$(cat)
-    
+
     if [ -z "$BODY" ]; then
         read -p "본문이 비어있습니다. 계속하시겠습니까? (y/N): " confirm
         if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
             exit 0
         fi
     fi
-    
+
     # Issue 연결 키워드 자동 추가
     if [ -n "$BODY" ]; then
         BODY="${BODY}"$'\n\n'"Closes #${ISSUE_ID}"
@@ -98,11 +98,11 @@ dry_run() {
 # 메인 실행
 main() {
     check_prerequisites
-    
+
     get_title
     get_issue_id
     get_body
-    
+
     # Dry-run 확인
     read -p "PR을 생성하기 전에 미리보기를 보시겠습니까? (Y/n): " show_preview
     if [[ ! "$show_preview" =~ ^[Nn]$ ]]; then
@@ -113,7 +113,7 @@ main() {
             exit 0
         fi
     fi
-    
+
     # PR 생성
     echo "PR을 생성하는 중..."
     if gh pr create \
